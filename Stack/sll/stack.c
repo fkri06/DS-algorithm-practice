@@ -24,11 +24,18 @@ Node* create_new_node(int data){
 }
 
 void push(Node** head, int data){
-
+	Node* new_node = create_new_node(data);
+	new_node -> next = *head;
+	*head = new_node;
 }
 
 int pop(Node** head){
-
+	if(*head == NULL) return -1;
+	Node* node_to_pop = *head;
+	int pop = node_to_pop -> data;
+	*head = node_to_pop -> next;
+	free(node_to_pop);
+	return pop;
 }
 
 int peek(Node* head){
