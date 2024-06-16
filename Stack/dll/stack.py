@@ -21,10 +21,40 @@ class Stack:
         self.tail = None
 
     def push(self, value: int):
-        pass 
+        new_node = Node(value)
+        if self.tail == None:
+            self.head = self.tail = new_node
+            return
+        new_node.prev = self.tail
+        self.tail.next = new_node
+        self.tail = new_node
     
-    def pop(self) -> int:
-        pass 
+    def pop(self):
+        if self.tail == None:
+            return
+        node_to_pop = self.tail
+        self.tail = node_to_pop.prev
+        self.tail.next = None
+        return node_to_pop.data
     
     def peek(self) -> int:
         pass
+
+    def print_stack(self):
+        node = self.head
+        while(node != None):
+            print(f"{node.data} - ", end = " ")
+            node = node.next
+        print()
+
+stack = Stack()
+stack.push(12)
+stack.push(3)
+stack.push(1)
+stack.push(10)
+stack.push(11)
+
+stack.print_stack()
+print(stack.pop())
+stack.print_stack()
+

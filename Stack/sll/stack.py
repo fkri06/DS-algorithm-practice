@@ -18,9 +18,9 @@ class Stack:
         new_node.next = self.front
         self.front = new_node
 
-    def pop(self) -> int:
+    def pop(self):
         if self.front == None:
-            return -1
+            return
         node_to_pop = self.front
         self.front = node_to_pop.next # fix the link
         return node_to_pop.data
