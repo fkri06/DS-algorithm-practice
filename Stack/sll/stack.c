@@ -39,8 +39,28 @@ int pop(Node** head){
 }
 
 int peek(Node* head){
+	if(head != NULL) return head->data;
+}
 
+void free_up_memory(Node** head){
+	Node* node = *head;
+	while(*head != NULL){
+		*head = node->next;
+		free(node);
+		node = *head;
+	}
 }
 
 int main(){
+	Node* stack = NULL;
+	push(&stack, 12);
+	push(&stack, 1);
+	push(&stack, 15);
+	push(&stack, 4);
+	push(&stack, 20);
+	
+	printf("Pop value: %d\n", pop(&stack));
+	printf("Peek value: %d\n", peek(stack));
+
+	free_up_memory(&stack);
 }
