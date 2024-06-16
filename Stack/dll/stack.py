@@ -37,24 +37,7 @@ class Stack:
         self.tail.next = None
         return node_to_pop.data
     
-    def peek(self) -> int:
-        pass
-
-    def print_stack(self):
-        node = self.head
-        while(node != None):
-            print(f"{node.data} - ", end = " ")
-            node = node.next
-        print()
-
-stack = Stack()
-stack.push(12)
-stack.push(3)
-stack.push(1)
-stack.push(10)
-stack.push(11)
-
-stack.print_stack()
-print(stack.pop())
-stack.print_stack()
+    def peek(self):
+        if self.tail != None:
+            return self.tail.data
 
