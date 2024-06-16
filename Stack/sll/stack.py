@@ -18,8 +18,12 @@ class Stack:
         new_node.next = self.front
         self.front = new_node
 
-    def pop(self):
-        pass
+    def pop(self) -> int:
+        if self.front == None:
+            return -1
+        node_to_pop = self.front
+        self.front = node_to_pop.next # fix the link
+        return node_to_pop.data
 
     def peek(self):
         pass
