@@ -14,7 +14,9 @@ class Stack:
         self.front = None
 
     def push(self, value: int):
-        pass
+        new_node = Node(value)
+        new_node.next = self.front
+        self.front = new_node
 
     def pop(self):
         pass
