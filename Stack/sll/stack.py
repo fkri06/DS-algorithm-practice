@@ -25,6 +25,8 @@ class Stack:
         self.front = node_to_pop.next # fix the link
         return node_to_pop.data
 
-    def peek(self):
-        pass
+    def peek(self) -> int:
+        if self.front == None:
+            return -1
+        return self.front.data
 
