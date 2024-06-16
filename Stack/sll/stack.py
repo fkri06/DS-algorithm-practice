@@ -5,7 +5,7 @@
 #   - Top/peek : return the front of a stack's value withuot removing the value.
 
 class Node:
-    def __init__(self. data = None):
+    def __init__(self, data = None):
         self.data = data
         self.next = None
 
