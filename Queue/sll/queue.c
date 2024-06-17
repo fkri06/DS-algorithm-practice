@@ -24,12 +24,27 @@ Node* create_new_node(int data){
 }
 
 void enqueue(Node** front, Node** rear, int data){
+	Node* new_node = create_new_node(data);
+	if(*front == NULL){
+		*front = *rear = new_node;
+		return;
+	}
+	(*rear)->next = new_node;
+	*rear = new_node;
 }
 
 int dequeue(Node** front){
+	if(*front != NULL){
+		Node* node_to_dequeue = *front;
+		int dequeue_value = node_to_dequeue->data;
+		*front = node_to_dequeue->next; // fix the link
+		free(node_to_dequeue); // release the memory back
+		return dequeue_value;
+	}
 }
 
 int peek(Node* front){
+	if(front != NULL) return front->data;
 }
 
 void free_up_memory(Node** front){
@@ -44,5 +59,18 @@ void free_up_memory(Node** front){
 int main(){
 	Node* front;
 	Node* rear;
-	front = rear = NULL
+	front = rear = NULL;
+
+	enqueue(&front, &rear, 12);
+	enqueue(&front, &rear, 1);
+	enqueue(&front, &rear, 15);
+	enqueue(&front, &rear, 4);
+	enqueue(&front, &rear, 20);
+	printf(peek(front));
+	print_queue(front);
+	printf(dequeue(&front));
+	print_queue(front);
+	printf(peek(front));
+	
+	free_up_memory(&front);
 }
