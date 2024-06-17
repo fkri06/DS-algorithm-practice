@@ -16,8 +16,24 @@ class Queue:
         self.rear = None
 
     def enqueue(self, value: int):
-        pass
+        new_node = Node(value)
+        if self.front == None:
+            self.front = self.rear = new_node
+            return
+        new_node.next = self.front
+        self.front.prev = new_node
+        self.front = new_node
+
     def dequeue(self):
-        pass 
-    def peek(self) -> int:
-        pass
+        if self.rear == None:
+            raise IndexError("Dequeue an empty queue")
+        node_to_dequeue = self.rear
+        # fix the rear's link
+        self.rear = node_to_dequeue.prev
+        self.rear.next = None
+        return node_to_dequeue.data
+
+    def peek(self):
+        if self.rear != None:
+            return self.rear.data
+ 
