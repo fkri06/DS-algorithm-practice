@@ -9,14 +9,24 @@ class Node:
         self.data = data
         self.next = None
 
-class Stack:
+class Queue:
     def __init__(self):
         self.front = None
         self.rear = None
 
     def enqueue(self, value: int):
-        pass 
+        new_node = Node(value)
+        if self.front == None:
+            self.front = self.rear = new_node
+            return
+        self.rear.next = new_node
+        self.rear = new_node
+
     def dequeue(self):
-        pass
+        if self.front != None:
+            value_to_pop = self.front
+            self.front = value_to_pop.next # fix the link
+            return value_to_pop.data # return the value
+
     def peek(self) -> int:
         pass
