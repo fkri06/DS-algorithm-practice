@@ -23,10 +23,11 @@ class Queue:
         self.rear = new_node
 
     def dequeue(self):
-        if self.front != None:
-            value_to_pop = self.front
-            self.front = value_to_pop.next # fix the link
-            return value_to_pop.data # return the value
+        if self.front == None:
+            raise IndexError("Dequeue from an empty queue")
+        value_to_pop = self.front
+        self.front = value_to_pop.next # fix the link
+        return value_to_pop.data # return the value
 
     def peek(self) -> int:
         pass
