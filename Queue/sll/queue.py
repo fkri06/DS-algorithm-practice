@@ -30,4 +30,6 @@ class Queue:
         return value_to_pop.data # return the value
 
     def peek(self) -> int:
-        pass
+        if self.front == None:
+            raise IndexError("Peek from an empty queue")
+        return self.front.data
