@@ -33,6 +33,21 @@ Node* create_node(int value, Node* left, Node* right){
 }
 
 void insert(Node** root, int value){
+	if(value < (*root)->value){
+		if((*root)->left == NULL){
+			Node* new_node = create_node(value, NULL, NULL);
+			(*root)->left = new_node;
+		} else{
+			insert(&(*root)->left, value);
+		}
+	} else if(value > (*root)->value){
+		if((*root)->right == NULL){
+			Node* new_node = create_node(value, NULL, NULL);
+			(*root)->right = new_node;
+		} else{
+			insert(&(*root)->right, value);
+		}
+	}
 }
 
 void delete(Node** root){
@@ -92,10 +107,17 @@ int main(){
 	// traversal
 	printf("preorder Traversal\n");
 	preorder(root);
+	printf("\n");
 
+	insert(&root, 35);
+	insert(&root, 90);
+		
 	printf("\nInorder Traversal\n");
 	inorder(root);
+	printf("\n");
+
 	
 	printf("\nPostorder Traversal\n");
 	postorder(root);
+	printf("\n");
 }
