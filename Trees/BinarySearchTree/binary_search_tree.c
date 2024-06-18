@@ -50,7 +50,35 @@ void insert(Node** root, int value){
 	}
 }
 
-void delete(Node** root){
+Node* finding_node_successor(Node* node, Node* node_to_delete){
+	if(node->left){
+		node->left = finding_node_successor(node->left, node_to_delete);
+		return node;
+	} else{
+		node_to_delete->value = node->value;
+		return node->right;
+	}
+}
+
+Node* delete(Node** root, int value_to_delete){
+	if(*root == NULL) return *root;
+	if(value_to_delete < (*root)->value){
+		(*root)->left = delete(&(*root)->left, value_to_delete);
+	} else if(value_to_delete > (*root)->value){ 
+		(*root)->right = delete(&(*root)->right, value_to_delete);
+	} else{
+		if((*root)->left == NULL && (*root)->right){
+			free(*root);
+			*root = NULL;
+		} if((*root)->left == NULL){
+			return (*root)->right;
+		} else if((*root)->right == NULL){
+			return (*root)->left;
+		} else{
+			(*root)->right = finding_node_successor((*root)->left, *root);
+		}
+	}
+	return *root;
 }
 
 int search(Node* root, int value_to_search){
@@ -127,6 +155,8 @@ int main(){
 	printf("SEARCH: %d\n", search(root, 100));
 	printf("SEARCH: %d\n", search(root, 35));
 	
+	root = delete(&root, 50);
+	printf("Current root: %d\n", root->value);	
 	printf("\nPostorder Traversal\n");
 	postorder(root);
 	printf("\n");
