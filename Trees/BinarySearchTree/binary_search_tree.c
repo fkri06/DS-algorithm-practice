@@ -19,14 +19,14 @@
 #include<stdlib.h>
 
 typedef struct Node {
-	int data;
+	int value;
 	struct Node* left;
 	struct Node* right;
 } Node;
 
-Node* create_node(int data, Node* left, Node* right){
+Node* create_node(int value, Node* left, Node* right){
 	Node* new_node = malloc(sizeof(Node));
-	new_node -> data = data;
+	new_node -> value = value;
 	new_node->left = left;
 	new_node->right = right;
 	return new_node;
@@ -44,7 +44,7 @@ int search(Node* root){
 /* Depth first traversal*/
 void preorder(Node* root){
 	if(root == NULL) return;
-	printf("%d ", root->data);
+	printf("%d ", root->value);
 	preorder(root->left);
 	preorder(root->right);
 }
@@ -52,7 +52,7 @@ void preorder(Node* root){
 void inorder(Node* root){
 	if(root == NULL) return;
 	inorder(root->left);
-	printf("%d ", root->data);
+	printf("%d ", root->value);
 	inorder(root->right);
 }
 
@@ -60,7 +60,7 @@ void postorder(Node* root){
 	if(root == NULL) return;
 	postorder(root->left);
 	postorder(root->right);	
-	printf("%d ", root->data);
+	printf("%d ", root->value);
 }
 
 /* Breadth first traversal */
