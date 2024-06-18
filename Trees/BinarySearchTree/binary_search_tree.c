@@ -53,7 +53,15 @@ void insert(Node** root, int value){
 void delete(Node** root){
 }
 
-int search(Node* root){
+int search(Node* root, int value_to_search){
+	if(root == NULL) return 0;
+	if(value_to_search == root->value){
+		return 1;
+	} else if(value_to_search < root->value){
+		return search(root->left, value_to_search);
+	} else{
+		return search(root->right, value_to_search);
+	}
 }
 
 /* Depth first traversal*/
@@ -111,11 +119,13 @@ int main(){
 
 	insert(&root, 35);
 	insert(&root, 90);
-		
+
 	printf("\nInorder Traversal\n");
 	inorder(root);
 	printf("\n");
 
+	printf("SEARCH: %d\n", search(root, 100));
+	printf("SEARCH: %d\n", search(root, 35));
 	
 	printf("\nPostorder Traversal\n");
 	postorder(root);
