@@ -45,7 +45,25 @@ void heap_up(int index, int* array){
 }
 
 void heap_down(int index, int* array){
-	
+	int left_index = find_left_child(index);
+	int right_index = find_right_child(index);
+
+	if(index >= heap_length || left_index >= heap_length){
+		return;
+	}
+
+	int left_value = array[left_index];
+	int right_value = array[right_index];
+	int value = array[index];
+
+	if(left_value > right_value && left_value > value){
+		swap(&array[left_index], &array[index]);
+		heap_down(left_index, array);
+	} else if(right_value > left_value && right_value > value){
+		swap(&array[right_index], &array[index]);
+		heap_down(right_index, array);	
+	}
+
 }
 
 void insert(int index, int value, int* array){
@@ -54,7 +72,20 @@ void insert(int index, int value, int* array){
 	heap_length++;
 }
 
-int delete(int index, int* array){
+int delete(int index, int array[]){
+	if(heap_length == 0) return -1;
+	
+	int last_value_out = array[heap_length - 1];
+	heap_length--;
+	
+	if(heap_length == 1){
+		return last_value_out;
+	}
+
+	int remove_root_value = array[0];
+	array[0] = last_value_out;
+	heap_down(index, array);
+	return remove_root_value;
 }
 
 void print_heap(int* array, int length){
@@ -81,5 +112,7 @@ int main(){
 		insert(heap_length, value, array);
 	}
 
+	print_heap(array, heap_length);
+	printf("Delete root: %d\n", delete(0, array));
 	print_heap(array, heap_length);
 }
