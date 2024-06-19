@@ -89,14 +89,38 @@ class BST:
         return node
      
     def preorder(self, node: BinaryTree):
-        pass
+        if node == None:
+            return
+        print(node.value, end = " ")
+        self.preorder(node.left)
+        self.preorder(node.right)
 
-    def inorder(self):
-        pass
+    def inorder(self, node: BinaryTree):
+        if node == None:
+            return
+        self.inorder(node.left) 
+        print(node.value, end = " ")
+        self.inorder(node.right)
 
-    def postorder(self):
-        pass
+    def postorder(self, node: BinaryTree):
+        if node == None:
+            return
+        self.postorder(node.left)
+        self.postorder(node.right)
+        print(node.value, end = " ")
 
     def levelorder(self):
-        pass
+        if self.root == None:
+            return
+
+        queue = [self.root]
+        
+        while queue:
+            current_node = queue.pop(0)
+            print(current_node.value, end = " ")
+            if current_node.left:
+                queue.append(current_node.left)
+            if current_node.right:
+                queue.append(current_node.right)
+        print()
 
