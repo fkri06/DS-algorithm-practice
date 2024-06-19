@@ -24,25 +24,42 @@ int find_parent(int index){
 }
 
 int find_left_child(int index){
+	return (index * 2) + 1;
 }
 
 int find_right_child(int index){
+	return (index * 2) + 2;
 }
 
-void insert(int index, int* array){
+void heap_down(int index, int* array){
 	int parent_index = find_parent(index);
-	if(index == 0) return;
-	
+	if (index == 0) return;
+
 	int parent_value = array[parent_index];
 	int value = array[index];
 
 	if(parent_value < value){
 		swap(&array[parent_index], &array[index]);
-		insert(parent_index,  array);
+		heap_down(parent_index,  array);
 	}
 }
 
-int delete(int index){
+void insert(int index, int value, int* array){
+	array[heap_length] = value;
+	heap_down(index, array);
+	heap_length++;
+}
+
+int delete(int index, int* array){
+
+}
+
+void print_heap(int* array, int length){
+	printf("heap length: %d\n", length);
+	for(int i = 0; i < length; i++){
+		printf("%d ", array[i]);
+	}
+	printf("\n");
 }
 
 int main(){
@@ -58,14 +75,8 @@ int main(){
 		printf("Input value to a heap: ");
 		scanf("%d", &value);
 		
-		array[heap_length] = value;
-		insert(heap_length, array);
-		heap_length++;
+		insert(heap_length, value, array);
 	}
 
-	printf("heap length: %d\n", heap_length);
-	for(int i = 0; i < input_data_length; i++){
-		printf("%d\n", array[i]);
-	}
-
+	print_heap(array, heap_length);
 }
