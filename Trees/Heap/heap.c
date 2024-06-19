@@ -31,7 +31,7 @@ int find_right_child(int index){
 	return (index * 2) + 2;
 }
 
-void heap_down(int index, int* array){
+void heap_up(int index, int* array){
 	int parent_index = find_parent(index);
 	if (index == 0) return;
 
@@ -40,18 +40,21 @@ void heap_down(int index, int* array){
 
 	if(parent_value < value){
 		swap(&array[parent_index], &array[index]);
-		heap_down(parent_index,  array);
+		heap_up(parent_index,  array);
 	}
+}
+
+void heap_down(int index, int* array){
+	
 }
 
 void insert(int index, int value, int* array){
 	array[heap_length] = value;
-	heap_down(index, array);
+	heap_up(index, array);
 	heap_length++;
 }
 
 int delete(int index, int* array){
-
 }
 
 void print_heap(int* array, int length){
