@@ -9,12 +9,12 @@
 #
 
 class Heap:
-    def __init__():
+    def __init__(self):
         self.data = []
         self.length = 0
     
     def find_parent(self, index: int):
-        pass
+        return (index - 1) // 2
 
     def find_left_child(self, index: int):
         pass
@@ -22,14 +22,26 @@ class Heap:
     def find_right_child(self, index: int):
         pass
 
-    def heap_up(self, index):
+    def heap_up(self, index: int):
+        parent_index = self.find_parent(index)
+        if self.length == 0:
+            return
+
+        parent_value = self.data[parent_index]
+        value = self.data[index]
+
+        if parent_value < value:
+            self.data[index], self.data[parent_index] = parent_value, value
+            self.heap_up(parent_index)
+
+    def heap_down(self, index: int):
         pass
 
-    def heap_down(self, index):
-        pass
-
-    def insert(self):
-        pass
+    def insert(self, value: int):
+        self.data.append(value)
+        self.heap_up(self.length)
+        self.length += 1
 
     def remove(self):
         pass
+
