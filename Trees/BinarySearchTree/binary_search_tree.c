@@ -17,12 +17,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-
-typedef struct Node {
-	int value;
-	struct Node* left;
-	struct Node* right;
-} Node;
+#include "queue.h"
 
 Node* create_node(int value, Node* left, Node* right){
 	Node* new_node = malloc(sizeof(Node));
@@ -75,7 +70,7 @@ Node* delete(Node** root, int value_to_delete){
 		} else if((*root)->right == NULL){
 			return (*root)->left;
 		} else{
-			(*root)->right = finding_node_successor((*root)->left, *root);
+			(*root)->right = finding_node_successor((*root)->right, *root);
 		}
 	}
 	return *root;
@@ -116,16 +111,42 @@ void postorder(Node* root){
 
 /* Breadth first traversal */
 void levelorder(Node* root){
+	Queue* front;
+	Queue* rear;
+	Queue* mark_front;
+	mark_front = front = rear = NULL;
+	enqueue(&mark_front, &front, &rear, root);
+	
+	printf("Levelorder Traversal\n");
+	while(front != NULL){ // while the queue is not empty
+		Node* pop_node = dequeue(&front); // this can cause memory leak
+		printf("%d ", pop_node->value);
+		if(pop_node->left != NULL) {
+			enqueue(&mark_front, &front, &rear, pop_node->left);
+		}
+		if(pop_node->right != NULL) {
+			enqueue(&mark_front, &front, &rear, pop_node->right);
+		}
+	}
+	printf("\n");
+	free_up_q(&mark_front);
 }
 
 void free_all(Node* root){
+	if(root == NULL){
+		return;
+	}
+	free_all(root->left);
+	free_all(root->right);
+	free(root);
+	root = NULL;
 }
 
 int main(){
 
 	Node* node10 = create_node(57, NULL, NULL);
 	Node* node11 = create_node(80, NULL, NULL);
-	
+
 	Node* node8 = create_node(20, NULL, NULL);
 	Node* node9 = create_node(42, NULL, NULL);	
 
@@ -133,13 +154,13 @@ int main(){
 	Node* node7 = create_node(70, NULL, node11);	
 
 	Node* node4 = create_node(30, node8, NULL);
-	Node* node5 = create_node(40, node9, NULL);
+	Node* node5 = create_node(45, node9, NULL);
 	
 	Node* node2 = create_node(40, node4, node5);
 	Node* node3 = create_node(60, node6, node7);
 
 	Node* root = create_node(50, node2, node3);
-	
+
 	// traversal
 	printf("preorder Traversal\n");
 	preorder(root);
@@ -157,7 +178,11 @@ int main(){
 	
 	root = delete(&root, 50);
 	printf("Current root: %d\n", root->value);	
+	
 	printf("\nPostorder Traversal\n");
 	postorder(root);
 	printf("\n");
+
+	levelorder(root);
+	free_all(root);
 }
