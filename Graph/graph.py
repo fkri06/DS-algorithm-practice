@@ -19,6 +19,17 @@ class Graph:
                 continue
             self.dfs_traversal(vertex, visited_vertices)
 
-    def bfs_traversal(self):
-        pass
+    def bfs_traversal(self, starting_vertex):
+        visited_vertices = {}
+        visited_vertices[starting_vertex.value] = True
+        queue = [starting_vertex]
+        print("BFS TRAVERSAL")
+        while queue:
+            current_vertex = queue.pop(0)
+            print(current_vertex.value)
+            
+            for vertex in current_vertex.adjacency_vertices:
+                if not visited_vertices.get(vertex.value):
+                    visited_vertices[vertex.value] = True
+                    queue.append(vertex)
 
