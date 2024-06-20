@@ -5,13 +5,20 @@ class Graph:
         self.value = value
         self.adjacency_vertices = []
 
-    def add_adjecency_vertex(sefl, vertex):
-        pass
+    def add_adjecency_vertex(self, vertex):
+        if vertex in self.adjacency_vertices:
+            return
+        self.adjacency_vertices.append(vertex)
+        vertex.adjacency_vertices.append(self)
 
-    def dfs_traversal():
-        pass
+    def dfs_traversal(self, starting_vertex, visited_vertices = {}):
+        visited_vertices[starting_vertex.value] = True
+        print(starting_vertex.value)
+        for vertex in starting_vertex.adjacency_vertices:
+            if visited_vertices.get(vertex.value):
+                continue
+            self.dfs_traversal(vertex, visited_vertices)
 
-    def bfs_traversal():
+    def bfs_traversal(self):
         pass
-
 
